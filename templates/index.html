@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Учет электроэнергии</title>
+</head>
+<body class = "container">
+	<form method = "POST" action="create/">
+		{% csrf_token %}
+		<p>
+			<label>Введите предыдущее показание</label><br>
+			<input type="number" name="previos" />
+		</p>
+		<p>
+			<label>Введите текущее показание</label><br>
+			<input type="number" name="now" />
+		</p>
+		<input type="submit" value ="Отправить">
+	</form>
+	{% if all_data.count > 0 %}
+    <h2>История показаний</h2>
+    <table>
+        <tr><th>Id</th><th>Предыдущее</th><th>Текущее</th></tr>
+        {% for data in all_data %}
+        <tr><td>{{ data.id }}</td><td>{{ data.previos }}</td><td>{{ data.now }}</td></tr>
+        {% endfor %}
+    </table>
+    {% endif %}	
+</body>
+</html>
